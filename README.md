@@ -18,7 +18,7 @@ Deedot recognizes three different ways to incorporate ~/dotfiles/ settings into 
 
 * **Source** — Some file types have the ability to 'source' another file.
 
-* **Text substitution** — Setup.pl will read the text from *.subst files, and copy-n-paste it into the middle of the working version.
+* **Text substitution** — Deedot will read the text from *.subst files, and copy-n-paste it into the middle of the working version.
   
 ## Machine-specific overrides — via source ##
 
@@ -30,13 +30,13 @@ One way to have local machine-specific settings that override the global reposit
     # Override the global settings for this specific machine
     export TERM=xtermc
 
-Setup.pl [knows about each file type](https://github.com/DeeNewcum/dotfiles/blob/b3510c3a0bfedf2f33085a7eeacfa6586730b1f1/setup.pl#L124-131), and will suggest the appropriate 'source' line.
+Deedot [knows about each file type](https://github.com/DeeNewcum/dotfiles/blob/b3510c3a0bfedf2f33085a7eeacfa6586730b1f1/setup.pl#L124-131), and will suggest the appropriate 'source' line.
 
 ## Machine-specific overrides — via text substitution ##
 
 For files that don't have 'source' capability, text substitution is available as a fallback.
 
-For example, setup.pl will update the section of ~/.ssh/config every time it's run: 
+For example, deedot will update the section of ~/.ssh/config every time it's run: 
 
     ######## MODIFICATIONS HERE WILL BE OVERWRITTEN BY CONTENTS OF: ~/dotfiles/.ssh/config.subst ########
     Host github.com
