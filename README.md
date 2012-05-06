@@ -59,7 +59,7 @@ For example, deedot will update the section of ~/.ssh/config every time it's run
         [[1]](https://github.com/aspiers/shell-env)
         [[2]](https://github.com/chrra/dotfiles)
         [[3]](https://github.com/jmdeldin/dotfiles)
-* [homedir](https://github.com/docwhat/homedir) by Christian Höltje ([[1]](https://github.com/willnorris/homedir-packages))
+* [homedir](https://github.com/docwhat/homedir) by Christian Höltje [[1]](https://github.com/willnorris/homedir-packages)
 * [dotfiles](https://github.com/jbernard/dotfiles) by Jon Bernard
 * [homesick](https://github.com/technicalpickles/homesick) by Josh Nichols
 * [sync-dotfiles](https://github.com/xolox/sync-dotfiles) by Peter Odding
