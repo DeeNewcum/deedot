@@ -8,9 +8,9 @@
 
     # Your dotfiles are safe.  DeeDot won't overwrite anything.
 
-DeeDot is a tool to make managing your dotfile symlinks in $HOME easy, allowing you to keep all your dotfiles in a single directory.
+DeeDot is a tool for managing your dotfile symlinks in $HOME, allowing you to keep all your dotfiles in a single directory.
 
-Hosting is up to you. Using whatever VCS you prefer, or even rsync, you can easily distribute your dotfiles repository across multiple hosts.
+Hosting is up to you. Use whatever VCS you prefer, or even rsync.  Distribute your dotfile repository across multiple hosts.
 
 ## Usage ##
 
