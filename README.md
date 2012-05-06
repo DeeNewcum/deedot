@@ -6,7 +6,7 @@
     $  ls -l ~/.bashrc
     ~/.bashrc -> ~/dotfiles/.bashrc
 
-    # Your dotfiles are safe.  Deedot won't overwrite anything.
+    # Your dotfiles are safe.  DeeDot won't overwrite anything.
 
 DeeDot is a tool to make managing your dotfile symlinks in $HOME easy, allowing you to keep all your dotfiles in a single directory.
 
@@ -14,15 +14,15 @@ Hosting is up to you. Using whatever VCS you prefer, or even rsync, you can easi
 
 ## Usage ##
 
-Run deedot, fix the file conflicts that it notes, run deedot...   repeat until it doesn't report any conflicts.
+Run DeeDot, fix the file conflicts that it notes, run DeeDot...   repeat until it doesn't report any conflicts.
 
-Deedot recognizes three different ways to incorporate ~/dotfiles/ settings into the working versions:
+DeeDot recognizes three different ways to incorporate ~/dotfiles/ settings into the working versions:
 
 * **Symlink** — If you don't want any local-machine overrides. For example, ~/.bashrc can just be a symlink to ~/dotfiles/.bashrc.
 
 * **Source** — Some file types have the ability to 'source' another file.
 
-* **Text substitution** — Deedot will read the text from *.subst files, and copy-n-paste it into the middle of the working version.
+* **Text substitution** — DeeDot will read the text from *.subst files, and copy-n-paste it into the middle of the working version.
   
 ## Machine-specific overrides — via source ##
 
@@ -34,13 +34,13 @@ One way to have local machine-specific settings that override the global reposit
     # Override the global settings for this specific machine
     export TERM=xtermc
 
-Deedot [knows about each file type](https://github.com/DeeNewcum/deedot/blob/f0e7bfcef3344eb4dc05f95f223aafc73cb9d11c/deedot#L129-136), and will suggest the appropriate 'source' line.
+DeeDot [knows about each file type](https://github.com/DeeNewcum/deedot/blob/f0e7bfcef3344eb4dc05f95f223aafc73cb9d11c/deedot#L129-136), and will suggest the appropriate 'source' line.
 
 ## Machine-specific overrides — via text substitution ##
 
 For files that don't have 'source' capability, text substitution is available as a fallback.
 
-For example, deedot will update the section of ~/.ssh/config every time it's run: 
+For example, DeeDot will update the section of ~/.ssh/config every time it's run: 
 
     ######## MODIFICATIONS HERE WILL BE OVERWRITTEN BY CONTENTS OF: ~/dotfiles/.ssh/config.subst ########
     Host github.com
@@ -52,6 +52,10 @@ For example, deedot will update the section of ~/.ssh/config every time it's run
         User my-username
     
     # ... a bunch of other private stuff that I don't want to make available on the public repository.
+
+## Requirements ##
+
+DeeDot requires only Perl, and doesn't require any extra modules to be installed.  It is designed to run on as many Un*xes as possible.
 
 ## Similar projects ##
 
