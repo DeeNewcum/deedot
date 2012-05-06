@@ -1,6 +1,10 @@
 #!/usr/bin/perl
 
-# https://github.com/DeeNewcum/deedot
+# a tool for managing your ~/dotfile/ symlinks
+#       https://github.com/DeeNewcum/deedot
+#
+# Available under the MIT license:
+#       https://github.com/DeeNewcum/deedot/blob/master/LICENSE
 
 
     use strict;

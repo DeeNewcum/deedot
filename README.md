@@ -1,4 +1,4 @@
-## DeeDot — An installer for your ~/dotfiles/ repository ##
+## DeeDot — a tool for managing your ~/dotfile/ symlinks ##
 
     $  git clone https://github.com/yourself/dotfiles.git
     $  cd dotfiles
@@ -53,7 +53,7 @@ For example, deedot will update the section of ~/.ssh/config every time it's run
     
     # ... a bunch of other private stuff that I don't want to make available on the public repository.
 
-## Other software to consider ##
+## Similar projects ##
 
 * [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — though written for other purposes, it does symlink jujitsu, so it [works well for this](https://github.com/aspiers/shell-env)
 * [dotfiles](https://github.com/jbernard/dotfiles) by Jon Bernard
@@ -65,4 +65,4 @@ For example, deedot will update the section of ~/.ssh/config every time it's run
 
 ## My personal config files ##
 
-In case you're curious, mine are [stored here](https://github.com/DeeNewcum/dotfiles).
+If you're curious, mine are [available here](https://github.com/DeeNewcum/dotfiles).
