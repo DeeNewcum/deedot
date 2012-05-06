@@ -56,14 +56,8 @@ find { wanted => sub {
         } else {
             do_symlink($_);
         }
-    } }, no_chdir=>1}, ".";
-
-
-if ($ENV{USER} =~ /^[p][h][r][8][4][3]$/) {
-    # in some cases, I want to make sure the checkin attribution is correct
-    system "git", "config", "user.name", "Dee Newcum";
-    system "git", "config", "user.email", 'dee.newcum@gmail.com';
-}
+    }
+}, no_chdir=>1}, ".";
 
 
 
@@ -139,7 +133,6 @@ sub scan_file_for_include_command {
         .vimrc
                 exec "source " . expand('<sfile>:p:h') . "/<<HOMEPATH>>"
 EOF
-    #.vimrc =>    source <<PATH>>
     #print Dumper \%include_commands; exit;
 
     return 0 unless (-e "$ENV{HOME}/$file");
@@ -203,11 +196,11 @@ sub do_substitute {
     }
 
     # remove the existing text, if any
-            # (existing text is anything between the header and footer...  if there is no 0
+            # (existing text is anything between the header and footer)
+            # (if there is header but no footer, then body text hasn't been inserted yet)
     my @active_new_contents = @active_old_contents;
     my $header_index = grep_index(qr/\Q$header_text\E/, @active_new_contents);
     my $footer_index = grep_index(qr/\Q$footer_text\E/, @active_new_contents);
-        #$header_index = '(undef)' unless defined($header_index); $footer_index = '(undef)' unless defined($footer_index); print "header = $header_index\nfooter = $footer_index\n"; exit;
     if (defined($footer_index)) {
         splice(@active_new_contents, $header_index+1, $footer_index - $header_index);
     }
