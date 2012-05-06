@@ -59,11 +59,12 @@ For example, deedot will update the section of ~/.ssh/config every time it's run
         [[1]](https://github.com/aspiers/shell-env)
         [[2]](https://github.com/chrra/dotfiles)
         [[3]](https://github.com/jmdeldin/dotfiles)
-* [homedir](https://github.com/docwhat/homedir) by Christian Höltje [[1]](https://github.com/willnorris/homedir-packages)
-* [dotfiles](https://github.com/jbernard/dotfiles) by Jon Bernard
-* [homesick](https://github.com/technicalpickles/homesick) by Josh Nichols
-* [sync-dotfiles](https://github.com/xolox/sync-dotfiles) by Peter Odding
-* [git-home-history](http://jean-francois.richard.name/ghh/git-home-history.html) by Jean-Francois Richard
+* [homedir](https://github.com/docwhat/homedir) by Christian Höltje [[1]](https://github.com/willnorris/homedir-packages) [[2]](https://github.com/docwhat/homedir-examples)
+* [dotfiles](http://pypi.python.org/pypi/dotfiles) by Jon Bernard
+* [git-home-history](http://jean-francois.richard.name/ghh/) by Jean-Francois Richard
+* [homesick](https://github.com/technicalpickles/homesick) by Josh Nichols [[1]](https://github.com/technicalpickles/dotpickles)
+* [sync-dotfiles](http://peterodding.com/code/python/sync-dotfiles/) by Peter Odding
+* [dotfile-manager](http://blog.steve.org.uk/poppa_s_got_a_brand_new_bang_.html) [[1]](http://repository.steve.org.uk/cgi-bin/hgwebdir.cgi/dotfiles/file/adf1e61952a0)
 * [dot-files](https://github.com/bartman/dot-files) by Bart Trojanowski
 * [git-home](http://git-home.chezwam.org/) — dead?
 
