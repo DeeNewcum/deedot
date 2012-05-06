@@ -8,7 +8,11 @@
 
     # Your dotfiles are safe.  Deedot won't overwrite anything.
 
-## Overview ##
+DeeDot is a tool to make managing your dotfile symlinks in $HOME easy, allowing you to keep all your dotfiles in a single directory.
+
+Hosting is up to you. Using whatever VCS you prefer, or even rsync, you can easily distribute your dotfiles repository across multiple hosts.
+
+## Usage ##
 
 Run deedot, fix the file conflicts that it notes, run deedot...   repeat until it doesn't report any conflicts.
 
@@ -30,7 +34,7 @@ One way to have local machine-specific settings that override the global reposit
     # Override the global settings for this specific machine
     export TERM=xtermc
 
-Deedot [knows about each file type](https://github.com/DeeNewcum/dotfiles/blob/b3510c3a0bfedf2f33085a7eeacfa6586730b1f1/setup.pl#L124-131), and will suggest the appropriate 'source' line.
+Deedot [knows about each file type](https://github.com/DeeNewcum/deedot/blob/f0e7bfcef3344eb4dc05f95f223aafc73cb9d11c/deedot#L129-136), and will suggest the appropriate 'source' line.
 
 ## Machine-specific overrides — via text substitution ##
 
@@ -49,12 +53,16 @@ For example, deedot will update the section of ~/.ssh/config every time it's run
     
     # ... a bunch of other private stuff that I don't want to make available on the public repository.
 
-## Similar projects ##
+## Other software to consider ##
 
-* [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/)  (though written for other purposes, it does symlink jujitsu)
-* [dot-files](https://github.com/bartman/dot-files)
-* [sync-dotfiles](https://github.com/xolox/sync-dotfiles)
-* [dotfiles](https://github.com/jbernard/dotfiles)
-* [homesick](https://github.com/technicalpickles/homesick)
-* [git-home](http://git-home.chezwam.org/)
-* [git-home-history](http://jean-francois.richard.name/ghh/git-home-history.html)
+* [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — though written for other purposes, it does symlink jujitsu, so it [works well for this](https://github.com/aspiers/shell-env)
+* [dotfiles](https://github.com/jbernard/dotfiles) by Jon Bernard
+* [homesick](https://github.com/technicalpickles/homesick) by Josh Nichols
+* [sync-dotfiles](https://github.com/xolox/sync-dotfiles) by Peter Odding
+* [git-home-history](http://jean-francois.richard.name/ghh/git-home-history.html) by Jean-Francois Richard
+* [dot-files](https://github.com/bartman/dot-files) by Bart Trojanowski
+* [git-home](http://git-home.chezwam.org/) — dead?
+
+## My personal config files ##
+
+In case you're curious, mine are [stored here](https://github.com/DeeNewcum/dotfiles).
