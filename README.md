@@ -55,7 +55,11 @@ For example, deedot will update the section of ~/.ssh/config every time it's run
 
 ## Similar projects ##
 
-* [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — though written for other purposes, it does symlink jujitsu, so it [works well for this](https://github.com/aspiers/shell-env)
+* [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — though written for other purposes, it does symlink jujitsu, so it works well for this
+        [[1]](https://github.com/aspiers/shell-env)
+        [[2]](https://github.com/chrra/dotfiles)
+        [[3]](https://github.com/jmdeldin/dotfiles)
+* [homedir](https://github.com/docwhat/homedir) by Christian Höltje ([[1]](https://github.com/willnorris/homedir-packages))
 * [dotfiles](https://github.com/jbernard/dotfiles) by Jon Bernard
 * [homesick](https://github.com/technicalpickles/homesick) by Josh Nichols
 * [sync-dotfiles](https://github.com/xolox/sync-dotfiles) by Peter Odding
