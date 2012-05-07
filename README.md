@@ -1,4 +1,4 @@
-## DeeDot — a tool for managing your ~/dotfile/ symlinks ##
+## DeeDot ##
 
     $  git clone https://github.com/yourself/dotfiles.git
     $  cd dotfiles
@@ -8,9 +8,9 @@
 
     # Your dotfiles are safe.  DeeDot won't overwrite anything.
 
-DeeDot is a tool for managing your dotfile symlinks in $HOME, allowing you to keep all your dotfiles in a single directory.
+DeeDot is a tool for installing dotfile symlinks in your $HOME, allowing you to keep your versioned dotfiles under a single directory.
 
-Hosting is up to you. Use whatever VCS you prefer, or even rsync.  Distribute your dotfile repository across multiple hosts.
+Host your dotfiles in any version control system (even rsync), and voila, your dotfiles are available across multiple machines.
 
 ## Usage ##
 
@@ -53,9 +53,9 @@ For example, DeeDot will update the section of ~/.ssh/config every time it's run
     
     # ... a bunch of other private stuff that I don't want to make available on the public repository.
 
-## Requirements ##
+## Minimal requirements ##
 
-DeeDot requires only Perl, and doesn't require any extra modules to be installed.  It is designed to run on as many Un*xes as possible.
+DeeDot requires only Perl, and doesn't need any extra modules.  It is designed to run on as many Un*xes as possible.
 
 ## Similar projects ##
 
