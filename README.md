@@ -16,7 +16,7 @@ Host your dotfiles in any version control system (even rsync), and voila, your d
 
 Run DeeDot, fix the file conflicts that it notes, run DeeDot...   repeat until it doesn't report any conflicts.
 
-DeeDot recognizes three different ways to incorporate ~/dotfiles/ settings into the working versions:
+DeeDot recognizes three different ways to incorporate ~/dotfiles/ settings into the working versions in $HOME:
 
 * **Symlink** — If you don't want any local-machine overrides. For example, ~/.bashrc can just be a symlink to ~/dotfiles/.bashrc.
 
@@ -57,6 +57,11 @@ For example, DeeDot will update the section of ~/.ssh/config every time it's run
 
 DeeDot requires only Perl, and doesn't need any extra modules.  It is designed to run on as many Un*xes as possible.
 
+## Examples of DeeDot in use ##
+
+* [my personal config files are here](https://github.com/DeeNewcum/dotfiles).
+* (if you use DeeDot and have a public repo, please contact me if I can list it here)
+
 ## Similar projects ##
 
 * [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — though written for other purposes, it does symlink jujitsu, so it works well for this
@@ -72,6 +77,3 @@ DeeDot requires only Perl, and doesn't need any extra modules.  It is designed t
 * [dot-files](https://github.com/bartman/dot-files) by Bart Trojanowski
 * [git-home](http://git-home.chezwam.org/) — dead?
 
-## My personal config files ##
-
-If you're curious, mine are [available here](https://github.com/DeeNewcum/dotfiles).
