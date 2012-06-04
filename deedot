@@ -29,6 +29,9 @@ my $abs_home = abs_path($ENV{HOME});
 chdir $FindBin::Bin;
 
 
+###############
+##  INSTALL  ##
+###############
 # run through all files/directories under ~/dotfiles/
 find { wanted => sub {
     s/^\.\///;
@@ -52,12 +55,64 @@ find { wanted => sub {
     } elsif (-f $_) {
         # if it's a file, symlink it to $HOME
         if (/\.subst$/) {
-            do_substitute($_);
+            install_substitute($_);
         } else {
-            do_symlink($_);
+            install_symlink($_);
         }
     }
 }, no_chdir=>1}, ".";
+
+
+
+#################
+##  UNINSTALL  ##
+#################
+# find files that need to be uninstalled
+if (-e "$FindBin::Bin/.deedot.filelist") {
+    # ".deedot.filelist" is a file that specifies ALL files that are currently or HAVE EVER BEEN a
+    # part of the dotfile directory.
+    #
+    # It can either be a flat text file, or an executable script.  If it's a script, it is expected
+    # to output the list when it's run.
+    #
+    # This allows 'DeeDot' to remain VCS-neutral.  The command to run for various VCS's is:
+    #
+    # Git:
+    #       git log --pretty=format: --name-only
+    #
+    # TODO: add more
+    chdir $FindBin::Bin;
+    my $fin;
+    if (-x "$FindBin::Bin/.deedot.filelist") {
+        open $fin, "-|", "$FindBin::Bin/.deedot.filelist"  or die $!;
+    } else {
+        open $fin, '<', "$FindBin::Bin/.deedot.filelist"  or die $!;
+    }
+    my %seen;
+    my @uninstall;
+    while (<$fin>) {
+        chomp;
+        next unless /\S/;                   # ignore blank lines
+        next if ($seen{$_}++);              # ignore duplicate entries
+        if (!-e "$FindBin::Bin/$_") {
+            push(@uninstall, $_);
+        }
+    }
+
+    # Okay, now we know which ones have been uninstalled at some point.
+    # Do we need to actually uninstall any?
+    foreach my $file (@uninstall) {
+        my $target = "$ENV{HOME}/$file";
+        if (-l $target && !-e $target) {
+            # dangling symlink
+            print "Uninstalling $target   (dangling symlink)\n";
+            unlink($target);
+        } elsif ($target =~ /\.subst$/) {
+            # TODO: check if this needs to be uninstalled
+        }
+    }
+}
+
 
 
 
@@ -82,7 +137,7 @@ sub do_mkdir {
 }
 
 
-sub do_symlink {
+sub install_symlink {
     my ($file) = @_;
 
     my $to   = "$ENV{HOME}/$file";
@@ -172,7 +227,7 @@ EOF
 }
 
 
-sub do_substitute {
+sub install_substitute {
     my ($subst_filename) = @_;
 
     (my $subst_filename_basename = $subst_filename) =~ s/\.subst$//;
