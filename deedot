@@ -15,6 +15,7 @@
     # an improved version of 'use FindBin'
     BEGIN {$FindBin::Bin = dirname( abs_path $0 );}
 
+    use Getopt::Long;
     use File::Find;
 
     use Data::Dumper;
@@ -23,100 +24,109 @@
     #use Carp::Always;              # uncomment this to get a full stack backtrace when errors hit
 
 
+our %ARGV;
+process_cmdline();
+
 my $abs_home = abs_path($ENV{HOME});
 (my $repository_dir = $FindBin::Bin) =~ s/^\Q$abs_home\E/~/;
 
 chdir $FindBin::Bin;
 
-
 ###############
 ##  INSTALL  ##
 ###############
-# run through all files/directories under ~/dotfiles/
-find { wanted => sub {
-    s/^\.\///;
+if ($ARGV{install}) {
+    # run through all files/directories under ~/dotfiles/
+    find { wanted => sub {
+        s/^\.\///;
 
-    # directories to avoid altogether
-    if ($_ eq '.git') {
-        $File::Find::prune++;
-        return;
-    }
-
-    # files to not symlink
-    return if ($_ eq '.');
-    return if ($_ eq 'deedot');
-    return if /(?:^|\/)README.(?:creole|md)$/;
-    return if /\.swp$/;
-    
-    if (-d $_) {
-        # if it's a directory, create that path under $HOME
-        do_mkdir($_);
-
-    } elsif (-f $_) {
-        # if it's a file, symlink it to $HOME
-        if (/\.subst$/) {
-            install_substitute($_);
-        } else {
-            install_symlink($_);
+        # directories to avoid altogether
+        if ($_ eq '.git') {
+            $File::Find::prune++;
+            return;
         }
-    }
-}, no_chdir=>1}, ".";
 
+        # files to not symlink
+        return if ($_ eq '.');
+        return if ($_ eq 'deedot');
+        return if /(?:^|\/)README.(?:creole|md)$/;
+        return if /\.swp$/;
+        
+        if (-d $_) {
+            # if it's a directory, create that path under $HOME
+            install_directory($_);
+
+        } elsif (-f $_) {
+            # if it's a file, symlink it to $HOME
+            if (/\.subst$/) {
+                install_text_substitution($_);
+            } else {
+                install_symlink($_);
+            }
+        }
+    }, no_chdir=>1}, ".";
+}
 
 
 #################
 ##  UNINSTALL  ##
 #################
-# find files that need to be uninstalled
-if (-e "$FindBin::Bin/.deedot.filelist") {
-    # ".deedot.filelist" is a file that specifies ALL files that are currently or HAVE EVER BEEN a
-    # part of the dotfile directory.
-    #
-    # It can either be a flat text file, or an executable script.  If it's a script, it is expected
-    # to output the list when it's run.
-    #
-    # This allows 'DeeDot' to remain VCS-neutral.  The command to run for various VCS's is:
-    #
-    # Git:
-    #       git log --pretty=format: --name-only
-    #
-    # TODO: add more
-    chdir $FindBin::Bin;
-    my $fin;
-    if (-x "$FindBin::Bin/.deedot.filelist") {
-        open $fin, "-|", "$FindBin::Bin/.deedot.filelist"  or die $!;
+if ($ARGV{uninstall} || $ARGV{cleanup}) {
+    # find files that need to be uninstalled / cleaned up
+    my @filelist;
+    if ($ARGV{all}) {
+        @filelist = list_files_custom($ARGV{all});
     } else {
-        open $fin, '<', "$FindBin::Bin/.deedot.filelist"  or die $!;
-    }
-    my %seen;
-    my @uninstall;
-    while (<$fin>) {
-        chomp;
-        next unless /\S/;                   # ignore blank lines
-        next if ($seen{$_}++);              # ignore duplicate entries
-        if (!-e "$FindBin::Bin/$_") {
-            push(@uninstall, $_);
-        }
+        die "TODO";
     }
 
-    # Okay, now we know which ones have been uninstalled at some point.
+    if ($ARGV{cleanup}) {
+        # don't uninstall files that SHOULD be installed
+        @filelist = grep {  !-e "$FindBin::Bin/$_"  } @filelist;
+    }
+
+    # Actually uninstall things
     # Do we need to actually uninstall any?
-    foreach my $file (@uninstall) {
+    foreach my $file (@filelist) {
         my $target = "$ENV{HOME}/$file";
-        if (-l $target && !-e $target) {
+        if ($target =~ s/\.subst$// && -e $target) {
+            warn "TODO: unable to uninstall $target\n\t";
+        } elsif (-l $target) {
             # dangling symlink
-            print "Uninstalling $target   (dangling symlink)\n";
+            print "Uninstalling $target   (symlink)\n";
             unlink($target);
-        } elsif ($target =~ /\.subst$/) {
-            # TODO: check if this needs to be uninstalled
         }
+        # install_source_command() doesn't need to be uninstalled, does it?
+        #       Many of those are conditional.
     }
 }
 
 
+sub process_cmdline {
+    GetOptions( \%ARGV,
+                    map {"$_:s"}        # all arguments are optional, like Getopt::Casual
+        'help|h|?',         # show help text
+        'install|i',
+        'uninstall|u',
+        'cleanup|c',
+        'all|a',
+    ) or usage();
+    %ARGV = map {length()?$_:1} %ARGV;      # arguments are optional
+    #die Dumper \%ARGV;
+
+    $ARGV{help} and usage();
+    if (!($ARGV{install} || $ARGV{uninstall} || $ARGV{cleanup})) {
+        print STDERR "You must specify -i or -u or -c.\n\n";
+        usage();
+    }
+}
 
 
-sub do_mkdir {
+## The usage() text is found below the __DATA__ line.
+sub usage {print STDERR <DATA>; exit 1}
+
+
+sub install_directory {
     my ($dir) = @_;
 
     return if (-d "$ENV{HOME}/$dir");
@@ -160,7 +170,7 @@ sub install_symlink {
         } else {
             # It's a regular file.
             # Is it one of the files we know about, that we can suggest a #include/source line to the user?
-            if (!scan_file_for_include_command($file)) {
+            if (!install_source_command($file)) {
                 # If the above function returned false, that means it didn't notify the user about the status of the file.  So we'll use the fallback notification.
                 print "WARNING: ~/$file  already exists\n";
             }
@@ -175,7 +185,7 @@ sub install_symlink {
 # Here we scan through the file, line-by-line, checking if it has the specific command we're looking for.
 #
 # Returns true if this routine took care of notifying the user.
-sub scan_file_for_include_command {
+sub install_source_command {
     my ($file) = @_;
 
     my %include_commands = map {s/^\s+|\s+$//sg; $_} split /[\n\r]+/, <<'EOF';
@@ -227,7 +237,7 @@ EOF
 }
 
 
-sub install_substitute {
+sub install_text_substitution {
     my ($subst_filename) = @_;
 
     (my $subst_filename_basename = $subst_filename) =~ s/\.subst$//;
@@ -279,6 +289,38 @@ sub install_substitute {
 }
 
 
+# Get a list of all filenames that are currently installed, or have been ever been installed.
+# Get the list from a file, or a custom script (by using '-' for the filename, and piping
+# the output of the script to here).
+#
+# By using a custom script / command, this allows DeeDot to remain VCS-neutral.
+#
+# Format of the file list:
+#       - should be relative to the VCS repository root
+sub list_files_custom {
+    my ($file) = @_;
+
+    my $fh;
+    if ($file eq '-') {
+        $fh = *STDIN;
+    } else {
+        open $fh, '<', $file
+                or die "Unable to read from '$file': $!\n";
+    }
+    my %seen;
+    my @all_files;
+    while (<$fh>) {
+        chomp;
+        next unless /\S/;                   # ignore blank lines
+        next if ($seen{$_}++);              # ignore duplicate entries
+        push(@all_files, $_);
+    }
+
+    return @all_files;
+}
+
+
+
 
 # Return the index of the first array element that matches the given pattern.
 #
@@ -296,3 +338,34 @@ sub grep_index {
 
 # quickly read a whole file
 sub slurp {my$p=open(my$f,"$_[0]")or die$!;my@o=<$f>;close$f;waitpid($p,0);wantarray?@o:join("",@o)}
+
+
+__DATA__
+Usage:  deedot <-i|-u|-c>
+
+Modes:
+
+    -i      Install / update
+
+    -u      Uninstall
+
+    -c      Cleanup
+
+Options:
+
+    -a <filename>
+    --all=<filename>
+
+            When doing an uninstall or cleanup, provide a file that lists ALL files that have
+            ever been installed at any point.
+
+            This can be '-' to read from STDIN.
+
+            DeeDot is VCS-neutral.  This feature allows you to use your VCS to list all
+            current AND PREVIOUS filenames.
+
+            The command to run for various VCS's is:
+
+            Git:
+                git log --pretty=format: --name-only
+
