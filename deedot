@@ -242,6 +242,7 @@ sub install_text_substitution {
     (my $subst_filename_basename = $subst_filename) =~ s/\.subst$//;
 
     my @subst_contents = slurp($subst_filename);
+    macro_expansion(\@subst_contents);
 
             # "active" means the version of the config file that is directly used by the standard tools
     my $active_filename = "$ENV{HOME}/$subst_filename_basename";
@@ -284,6 +285,26 @@ sub install_text_substitution {
         open my $fout, '>', $active_filename        or die "Unable to write to $active_filename:  $!";
         print $fout @active_new_contents;
         close $fout;
+    }
+}
+
+
+# We support minimal text-modification.
+# This functionality is necessary because of .gitconfig's limitation:
+#       https://github.com/DeeNewcum/deedot/issues/6
+#
+# The generic syntax is:
+#           <<macro>>
+#
+# Currently, only environment variables are supported.  Eg:
+#           <<$HOME>>
+sub macro_expansion {
+    my $file_contents = shift;
+
+    ## environment variables
+    foreach (@$file_contents) {
+        s/<<\$([^\$<>]*)>>/
+                            exists $ENV{$1} ? $ENV{$1} : "" /eg;
     }
 }
 
