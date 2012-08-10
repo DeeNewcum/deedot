@@ -115,9 +115,8 @@ sub process_cmdline {
     #die Dumper \%ARGV;
 
     $ARGV{help} and usage();
-    if (!($ARGV{install} || $ARGV{uninstall} || $ARGV{cleanup})) {
-        print STDERR "You must specify -i or -u or -c.\n\n";
-        usage();
+    if (!$ARGV{uninstall} && !$ARGV{cleanup}) {
+        $ARGV{install}++;       # install mode is default
     }
 }
 
