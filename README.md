@@ -53,6 +53,12 @@ For example, DeeDot will update the section of ~/.ssh/config every time it's run
     
     # ... a bunch of other private stuff that I don't want to make available on the public repository.
 
+DeeDot can also do variable interpolation for environment variables, when in text-substitution mode.  For example, in .gitconfig.subst:
+
+    [core]
+        # global gitignore settings
+        excludesfile = <<$HOME>>/.gitignore
+
 ## Minimal requirements ##
 
 DeeDot requires only Perl, and doesn't need any extra modules.  It is designed to run on as many Un*xes as possible.
