@@ -1,0 +1,25 @@
+==== gameplan ====
+
+- in install_symlink(), change the -l section to check if it's pointing to OUR OWN repo, and only
+  overwrite it in that case
+
+
+
+===== testing ====
+
+To test this:
+
+- set up a test-area, with two different repos
+
+- create RepoA; create RepoA/.bashrc; symlink ~/.bashrc to /etc/bashrc; run deedot, and confirm it
+  won't overwrite it
+
+- remove the symlink that's currently at ~/.bashrc
+
+- create RepoB; create RepoB/.bashrc; create RepoA/.vimrc
+    - confirm that .bashrc 
+    > note...  is it possible to install this to somewhere other than $HOME?
+    > for testing purposes, I suppose I could temporarily set $HOME to be another directory
+
+- try removing RepoB completely
+
