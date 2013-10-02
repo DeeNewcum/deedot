@@ -16,10 +16,15 @@ To test this:
 
 - remove the symlink that's currently at ~/.bashrc
 
+- TODO: figure out something that lets us test whether two repos can co-exist by using the
+  substitution method, and confirm that the correct source document gets substituted into the
+  correct section
+
 - create RepoB; create RepoB/.bashrc; create RepoA/.vimrc
     - confirm that .bashrc 
     > note...  is it possible to install this to somewhere other than $HOME?
     > for testing purposes, I suppose I could temporarily set $HOME to be another directory
 
 - try removing RepoB completely
+    - confirm that ~/.bashrc is removed
 
