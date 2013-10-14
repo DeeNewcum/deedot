@@ -10,11 +10,11 @@
 
 DeeDot is a tool for installing dotfile symlinks in your $HOME, allowing you to keep your versioned dotfiles under a single directory.
 
-Host your dotfiles in any version control system (even rsync), and voila, your dotfiles are available across multiple machines.
+Host your dotfiles in any version control system (eg. Git, Hg, SVN, even rsync), and voila, your dotfiles are available across multiple machines.
 
 ## Usage ##
 
-Run DeeDot, fix the file conflicts that it notes, run DeeDot...   repeat until it doesn't report any conflicts.
+Run DeeDot, fix the file conflicts that it notes, run DeeDot...   repeat until it doesn't report any conflicts.
 
 DeeDot recognizes three different ways to incorporate ~/dotfiles/ settings into the working versions in $HOME:
 
