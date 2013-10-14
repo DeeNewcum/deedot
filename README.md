@@ -70,6 +70,8 @@ DeeDot requires only Perl, and doesn't need any extra modules.  It is designed t
 
 ## Similar projects ##
 
+A literature review was done while writing this.  The following projects are those that inspired this, or are recommended as alternatives:
+
 * [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — though written for other purposes, it does symlink jujitsu, so it works well for this
         [[1]](https://github.com/aspiers/shell-env)
         [[2]](https://github.com/chrra/dotfiles)
