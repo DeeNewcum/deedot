@@ -61,7 +61,7 @@ DeeDot can also do variable interpolation for environment variables, when in tex
 
 ## Minimal requirements ##
 
-DeeDot requires only Perl, and doesn't need any extra modules.  It is designed to run on as many Un*xes as possible.  It has been dogfooded on various versions of Solaris, AIX, and Linux.
+DeeDot requires only Perl, and doesn't need any extra modules.  It is designed to run on as many Un*xes as possible.  It has been used regularly on various versions of Solaris, AIX, and Linux.
 
 ## Examples of DeeDot in use ##
 
