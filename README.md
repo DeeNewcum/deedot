@@ -84,4 +84,5 @@ A literature review was done while writing this.  The following projects are tho
 * [dotfile-manager](http://blog.steve.org.uk/poppa_s_got_a_brand_new_bang_.html) [[1]](http://repository.steve.org.uk/cgi-bin/hgwebdir.cgi/dotfiles/file/adf1e61952a0)
 * [dot-files](https://github.com/bartman/dot-files) by Bart Trojanowski
 * [git-home](http://git-home.chezwam.org/) — dead?
+* [dots](https://github.com/EvanPurkhiser/dots) by Evan Purkhiser
 
