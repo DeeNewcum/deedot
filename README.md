@@ -14,7 +14,7 @@ Host your dotfiles in any version control system (eg. Git, Hg, SVN, even rsync),
 
 ## Usage ##
 
-Run DeeDot, fix the file conflicts that it notes, run DeeDot...   repeat until it doesn't report any conflicts.
+Run DeeDot, fix the file conflicts that it notes.  Rinse and repeat until it doesn't report any conflicts.
 
 DeeDot recognizes three different ways to incorporate ~/dotfiles/ settings into the working versions in $HOME:
 
@@ -23,6 +23,8 @@ DeeDot recognizes three different ways to incorporate ~/dotfiles/ settings into 
 * **Source** — Some file types have the ability to 'source' another file.
 
 * **Text substitution** — DeeDot will read the text from *.subst files, and copy-n-paste it into the middle of the working version.
+
+These are explained below.
   
 ## Machine-specific overrides — via source ##
 
