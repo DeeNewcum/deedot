@@ -25,6 +25,17 @@ DeeDot recognizes three different ways to incorporate ~/dotfiles/ settings into 
 * **Text substitution** — DeeDot will read the text from *.subst files, and copy-n-paste it into the middle of the working version.
 
 These are explained below.
+
+## Symlinks
+
+For example:
+
+    ~/.bashrc        -> ~/dotfiles/.bashrc
+    ~/.lesskey       -> ~/dotfiles/.lesskey
+    ~/.tmux.conf     -> ~/dotfiles/.tmux.conf
+    ~/.vimrc         -> ~/dotfiles/.vimrc
+    ~/bin/termdetect -> ~/dotfiles/bin/termdetect
+    ~/bin/rmrf       -> ~/dotfiles/bin/rmrf
   
 ## Machine-specific overrides — via source ##
 
