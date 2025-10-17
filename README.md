@@ -85,10 +85,11 @@ DeeDot requires only Perl, and doesn't need any extra modules.  It is designed t
 
 A literature review was done while writing this.  The following projects are those that inspired this, or are recommended as alternatives:
 
-* [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — though written for other purposes, it does symlink jujitsu, so it works well for this
+* [GNU stow](http://www.inductiveload.com/posts/basic-use-of-gnu-stowxstow/) — A general-purpose tool for symlink jujitsu.
         [[1]](https://github.com/aspiers/shell-env)
         [[2]](https://github.com/chrra/dotfiles)
         [[3]](https://github.com/jmdeldin/dotfiles)
+* Xorg's [lndir](https://www.x.org/archive/X11R7.6/doc/man/man1/lndir.1.xhtml) — A general-purpose tool.
 * [homedir](https://github.com/docwhat/homedir) by Christian Höltje [[1]](https://github.com/willnorris/homedir-packages) [[2]](https://github.com/docwhat/homedir-examples)
 * [dotfiles](http://pypi.python.org/pypi/dotfiles) by Jon Bernard
 * [git-home-history](http://jean-francois.richard.name/ghh/) by Jean-Francois Richard
