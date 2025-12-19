@@ -15,13 +15,13 @@
     use File::Basename;
     BEGIN {$FindBin::Bin = dirname( abs_path $0 );}
 
+    #use Carp::Always;              # uncomment this to get a full stack backtrace when errors hit
+    use Data::Dumper;
+    $Data::Dumper::Useqq++;
     use File::Find;
     use Getopt::Long;
     use Log::Dispatch;
 
-    use Data::Dumper;
-    $Data::Dumper::Useqq++;
-    #use Carp::Always;              # uncomment this to get a full stack backtrace when errors hit
 
 # Configure logging levels.
 our $log = Log::Dispatch->new(
@@ -44,39 +44,42 @@ chdir $FindBin::Bin;
 ###############
 if ($ARGV{install}) {
     # run through all files/directories under ~/dotfiles/
-    find { wanted => sub {
-        s/^\.\///;
+    find {
+        wanted => sub {
+            s/^\.\///;
 
-        # directories to avoid altogether
-        if ($_ eq '.git') {
-            $File::Find::prune++;
-            return;
-        }
-
-        # files to not symlink
-        return if ($_ eq '.');
-        return if ($_ eq 'deedot');
-        return if /(?:^|\/)(?:README|INSTALL).(?:creole|md)$/;
-        return if /\.swp$/;
-        
-        if (-d $_) {
-            # if it's a directory, create that path under $HOME
-            install_directory($_);
-
-        } elsif (-f $_) {
-            # if it's a file, symlink it to $HOME
-            if (/\.subst$/) {
-                install_text_substitution($_);
-            } else {
-                install_symlink($_);
+            # directories to avoid altogether
+            if ($_ eq '.git') {
+                $File::Find::prune++;
+                return;
             }
 
-        } elsif (-l $_) {
-            # if it's a symlink, copy it to $HOME
-            copy_symlink($_);
-        }
+            # files to not symlink
+            return if ($_ eq '.');
+            return if ($_ eq 'deedot');
+            return if /(?:^|\/)(?:README|INSTALL).(?:creole|md)$/;
+            return if /\.swp$/;
+            
+            if (-d $_) {
+                # if it's a directory, create that path under $HOME
+                install_directory($_);
 
-    }, no_chdir=>1}, ".";
+            } elsif (-f $_) {
+                # if it's a file, symlink it to $HOME
+                if (/\.subst$/) {
+                    install_text_substitution($_);
+                } else {
+                    install_symlink($_);
+                }
+
+            } elsif (-l $_) {
+                # if it's a symlink, copy it to $HOME
+                copy_symlink($_);
+            }
+
+        },
+        no_chdir => 1,
+    }, ".";
 }
 
 
@@ -150,7 +153,6 @@ sub install_directory {
     system "mkdir", "-p", "$ENV{HOME}/$dir";
 
     if (-d "$ENV{HOME}/$dir") {
-        #print "created   $dir\n";
         print "setup    ~/$dir\n";
     } else {
         print "ERROR: unable to create directory '$dir'\n";
