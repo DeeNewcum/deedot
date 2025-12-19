@@ -48,7 +48,7 @@ if ($ARGV{install}) {
         # files to not symlink
         return if ($_ eq '.');
         return if ($_ eq 'deedot');
-        return if /(?:^|\/)README.(?:creole|md)$/;
+        return if /(?:^|\/)(?:README|INSTALL).(?:creole|md)$/;
         return if /\.swp$/;
         
         if (-d $_) {
