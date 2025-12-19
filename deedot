@@ -17,11 +17,19 @@
 
     use File::Find;
     use Getopt::Long;
+    use Log::Dispatch;
 
     use Data::Dumper;
     $Data::Dumper::Useqq++;
     #use Carp::Always;              # uncomment this to get a full stack backtrace when errors hit
 
+# Configure logging levels.
+our $log = Log::Dispatch->new(
+    outputs => [
+        #[ 'File',   min_level => 'debug', filename => 'logfile' ],
+        [ 'Screen', min_level => 'warning' ],
+    ],
+);
 
 our %ARGV;
 process_cmdline();
