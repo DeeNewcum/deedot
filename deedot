@@ -10,9 +10,9 @@
     use strict;
     use warnings;
 
+    # An improved version of 'use FindBin'.
     use Cwd 'abs_path';
     use File::Basename;
-    # an improved version of 'use FindBin'
     BEGIN {$FindBin::Bin = dirname( abs_path $0 );}
 
     use File::Find;
@@ -20,8 +20,8 @@
 
     use Data::Dumper;
     $Data::Dumper::Useqq++;
-    #use Devel::Comments;           # uncomment this during development to enable the ### debugging statements
     #use Carp::Always;              # uncomment this to get a full stack backtrace when errors hit
+
 
 our %ARGV;
 process_cmdline();
