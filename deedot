@@ -28,7 +28,7 @@
 our $log = Log::Dispatch->new(
     outputs => [
         #[ 'File',   min_level => 'debug', filename => 'logfile' ],
-        [ 'Screen', min_level => 'info' ],
+        #[ 'Screen', min_level => 'info' ],
     ],
 );
 
