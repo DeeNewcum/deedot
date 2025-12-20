@@ -351,9 +351,9 @@ sub copy_symlink {
     # File::Copy::copy() would normally do
     my $readlink_from = readlink($from);
 
-    if (!-e $to) {
+    if (!-e $to && !-l $to) {
         symlink($readlink_from, $to)
-            or die "Unable to create symlink for '$file'.\n";
+            or die "ERROR: Unable to create symlink '$to'.\n";
     } elsif (-l $to) {
         # has this symlink already been installed correctly?
         my $readlink_to = readlink($to);
